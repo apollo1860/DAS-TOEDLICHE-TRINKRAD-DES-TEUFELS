@@ -9,49 +9,29 @@
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
   }
-  h1 {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    color: #ff5757; /* Rote Schriftfarbe */
-  }
   #circle {
-    width: 300px; /* Größerer Kreis */
-    height: 300px; /* Größerer Kreis */
-    background-color: #5a78b4; /* Neuer Farbton */
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
     border-radius: 50%;
     margin: 50px auto;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px; /* Kleinere Schriftgröße */
-    color: #fff; /* Weiße Schrift */
+    font-size: 18px;
   }
   #categories {
     text-align: center;
     margin-top: 20px;
   }
-  .category {
-    font-size: 16px; /* Kleinere Schriftgröße */
-    margin: 5px;
-    font-weight: bold; /* Fettschrift */
-  }
-  .sub-category {
-    font-size: 12px; /* Kleinere Schriftgröße */
-    margin-top: 5px;
-  }
   .letter {
     display: inline-block;
-    padding: 10px 15px; /* Größere Polsterung für größere Buchstabenfelder */
-    background-color: #5a78b4; /* Neuer Farbton */
+    padding: 15px 20px; /* Größere Polsterung für größere Buchstabenfelder */
+    background-color: #e0e0e0;
     border-radius: 5px;
     margin: 5px;
     cursor: pointer;
-    color: #fff; /* Weiße Schrift */
-  }
-  .letter:hover, .letter:active {
-    background-color: #ccc; /* Grau bei Hover und Klick */
   }
   .letter-row {
     margin-bottom: 10px; /* Abstand zwischen den Zeilen */
@@ -61,14 +41,13 @@
     color: darkgreen;
     text-align: center;
     margin-top: 20px;
-    font-size: 30px; /* Größere Schriftgröße */
   }
   #end-timer {
     position: fixed;
     top: 20px;
     right: 20px;
     font-weight: bold;
-    font-size: 40px; /* Größere Schriftgröße */
+    font-size: 20px;
     color: red;
     display: none;
   }
@@ -87,24 +66,23 @@
     text-align: center;
   }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h1>TÖDLICHES TRINKTEUFELSRAD</h1>
+<h1 style="text-align:center;">TÖDLICHES TRINKTEUFELSRAD</h1>
 
 <div id="circle" onclick="showCategory()">Klicke hier<br>für eine Kategorie</div>
 
 <div id="categories"></div>
 
-<div id="click-counter">Schlücke: <span id="clicks">0</span></div>
+<div id="click-counter">Klicks: <span id="clicks">0</span></div>
 
 <div id="end-timer"></div>
 
 <div id="popup" class="popup">
   <div class="popup-content">
     <h2>Runde beendet!</h2>
-    <p>Schlücke: <span id="popup-clicks">0</span></p>
+    <p>Klicks: <span id="popup-clicks">0</span></p>
     <button onclick="resetGame()">Neue Runde starten</button>
   </div>
 </div>
@@ -112,131 +90,143 @@
 <script>
   // Array der Kategorien
   var categories = [
-    "Städte in Deutschland", "Städte in Frankreich", "Städte in England", "Bundesstaaten in der USA",
-    "Fast-Food-Ketten", "Körperteile", "Kleidungsmarken", "Milliardäre", "Podcasts", "Shots",
-    "Illegale Drogen", "Städte in Italien", "Zeitungen", "Malle-Sänger", "Malle-Lieder", "Musikgruppen",
-    "Harry Potter Charaktere", "Gesellschaftsspiele", "Trinkspiele", "Ehemalige Fußballprofis",
-    "Aktuelle Fußballprofis", "Fußballvereine", "Schauspieler", "Sänger", "Sportler",
-    "TV-Serien", "Social-Media-Plattform", "Unternehmen", "Länder in Europa", "Länder in Afrika",
-    "Länder in Asien", "Länder in Südamerika", "Länder in Ozeanien", "Länder in Nord- und Mittelamerika",
-    "Zeichentrickfiguren", "Politiker", "Pornostars", "Zigarettenmarken", "Obstsorten", "Gemüse",
-    "Tiere", "Promis", "Porno-Kategorie", "Biermarken", "Alkoholische Getränke", "Influencer",
-    "Beleidigungen", "Musikinstrumente", "Deutsche Schauspieler", "Banken", "Pizzen", "Cola-Marken",
-    "Möbel", "Deutsche Musiker", "Trash TV Serien", "Studiengänge", "Münchner U-Bahn Stationen",
-    "Luxusmarken", "Süßigkeiten", "McDonalds Produkte", "Porno-Websites", "Superhelden",
-    "Hauptstädte der Welt", "Musikgenres", "Comicfiguren", "Baumarten", "Disney-Filme",
-    "Chemische Elemente", "Berufe", "Versicherungskonzerne", "Deutsche Filme", "Politische Parteien in Deutschland",
-    "Hunderassen"
+    "Beleidigungen", "Städte in Deutschland", "Städte in Frankreich", "Städte in England",
+    "Bundesstaaten in der USA", "Fast-Food-Ketten", "Körperteile", "Kleidungsmarken",
+    "Milliardäre (Nachname)", "Podcasts", "Shots", "Illegale Drogen", "Städte in Italien",
+    "Zeitungen", "Malle-Sänger (Nachname oder Künstlername)", "Malle-Lieder", "Musikgruppen",
+    "Harry Potter Charaktere", "Gesellschaftsspiele", "Trinkspiele",
+    "Ehemalige Fußballprofis (Nachname)", "Aktuelle Fußballprofis (Nachname)",
+    "Fußballvereine (Stadtname)", "Schauspieler (Nachname)", "Sänger (Nachname)",
+    "Sportler (ohne Fußball)", "TV-Serien", "Social-Media-Plattform", "Unternehmen",
+    "Länder in Europa", "Länder in Afrika", "Länder in Asien", "Länder in Südamerika",
+    "Länder in Ozeanien", "Länder in Nord- und Mittelamerika", "Zeichentrickfiguren (Vor- oder Nachname)",
+    "Politiker (Nachname)", "Pornostars (Nachname)", "Zigarettenmarken", "Obstsorten", "Gemüse",
+    "Tiere", "Promis (Nachname)", "Porno-Kategorie", "Biermarken", "Alkoholische Getränke",
+    "Automarken", "Zahlen (Schreibweise)", "Musiklieder", "Videospiele", "Filme", "Deutsche Filme",
+    "Reime auf Klein", "Reime auf Haus", "Reime auf Hand", "Reime auf Licht", "Reime auf Traum",
+    "Reime auf Kaiser", "Deutsche Musiker", "Sportarten", "Getränke", "Lebensmittel", "Obst",
+    "Gemüse", "Tiere", "Städte in Bayern", "Städte in Baden-Württemberg", "Städte in Ostdeutschland",
+    "Städte in Hessen", "Städte in Rheinland Pflaz", "Küchenutensilien", "Sportwetten-Anbieter",
+    "Arten des Glückspiels", "Städte in Österreich", "Städte in der Schweiz", "Städte in England",
+    "Länder in Nord- und Mittelamerika", "Trash-TV Serien", "Comicfiguren", "Podcasts",
+    "Deutsche Schauspieler", "Shots", "Versicherungskonzerne", "Pornostars", "Malle-Sänger",
+    "Musikgruppen", "Schauspieler", "Malle-Lieder", "Alkolische Getränke", "Beleidigungen",
+    "Deutsche Filme", "Porno-Websites", "Sänger", "Baumarten", "Studiengänge", "Kleidungsmarken",
+    "Möbel", "Promis", "Banken", "Superhelden", "Social-Media-Plattformen", "Illegale Drogen",
+    "Städte in Frankreich", "Obstsorten", "McDonalds-Produkte", "Berufe", "Körperteile",
+    "Harry Potter Charaktere", "Zeitungen", "Sportler", "Unternehmen", "Ehemalige Fußballprofis",
+    "TV-Serien", "Zigarettenmarken", "Trinkspiele", "Luxusmarken", "Länder in Afrika", "Süßigkeiten",
+    "Politische Parteien in Deutschland", "Bundesstaaten in der USA", "Fußballvereine", "Politiker",
+    "Länder in Asien", "Hunderassen", "Hauptstädte der Welt", "Münchner U-Bahn-Stationen",
+    "Städte in Deutschland", "Disney-Filme", "Chemische Elemente", "Länder in Europa", "Cola-Marken",
+    "Gesellschaftsspiele", "Pizza-Sorten", "Biermarken", "Influencer", "Länder in Südamerika",
+    "Aktive Fußballprofis", "Musikgenres", "Musikinstrumente", "Fast-Food-Ketten", "Milliadäre auf der Welt",
+    "Zeichentrickfiguren", "Porno-Kategorien", "Städte in Italien", "Länder in Ozeanien", "Wörter auf Spanisch",
+    "Wörter auf Italienisch", "Wörter auf Englisch", "Wörter auf Französisch", "Farben", "Das Wort Hallo in anderen Sprachen",
+    "Städte in Spanien", "Kinderserien", "Fernsehmoderatoren", "Fernsehsender", "Radiosender", "Sportarten ohne Ball",
+    "Schuhmarken", "Straftaten", "Pflanzenarten", "Breaking Bad Charaktere", "Die Simpsons Charaktere",
+    "Game Of Thrones Charaktere", "Star Wars Charaktere", "Spongebob Schwammkopf Charaktere",
+    "Fast & Furious Charaktere", "Herr der Ringe Charaktere", "Microsoft Programme", "Apps im AppStore",
+    "Wassermarken", "Tankstellen", "Wörter, die sich auf Regen reimen", "Wörter, die in der deutschen Nationalhymne vorkommen",
+    "Clubs in München", "Supermärkte", "Musikstreaming-Anbieter", "Wodkamarken", "Bars/Kneipen in München",
+    "Länder, in deren Flagge Schwarz ist", "E-Mail-Anbieter", "Länder, in deren Flagge Blau ist", "Mobilfunk-Anbieter",
+    "Länder, in deren Flagge Weiß ist", "Währungen", "Länder, in deren Flagge Rot ist", "Weihnachtsfilme",
+    "Länder, in deren Flagge Grün ist", "Lieder von Queen", "Länder, in deren Flagge Gelb ist", "Lieder von The Beatles",
+    "Deutsche Vornamen", "Lieder von Michael Jackson", "Französische Vornamen", "Lieder von Taylor Swift",
+    "Italienische Vornamen", "Synonyme für \"Küssen\"", "Englischsprachige Vornamen", "Synonyme für \"Stuhlgang\"",
+    "Kaffeemarken", "Synonyme für \"Übergeben\"", "Länder, die früher zur Sowjetunion gehörten", "Synonyme für \"Urinieren\"",
+    "Lateinische Wörter", "Synonyme für \"Alkohol trinken\"", "Krankenhaus-Serien", "E-Scooter Anbieter",
+    "Serien, in denen es um eine Freundesgruppe geht", "Dinge, die man bei einem asiatischen Lokal bestellen kann",
+    "Organe", "Tiere, die in Deutschland beheimatet sind (ohne Zootiere)", "Dinge, die man mit Frankreich verbindet",
+    "Aktive oder ehemalige Tennisspieler", "Dinge, die man mit Italien verbindet", "Zootiere", "Dinge, die man mit Deutschland verbindet",
+    "Berufe im Freien", "Dinge, die man mit Spanien verbindet", "Flüsse", "Dinge, die man mit Japan verbindet", "Hotelketten",
+    "Dinge, die man mit der USA verbindet", "Steuerarten", "Dinge, die man mit China verbindet", "Synonyme für \"reden\"",
+    "Dinge, die man mit Russland verbindet", "Schulfächer", "Aktive oder ehemalige YouTuber", "Ketchup-Marken",
+    "Zahnpasta-Marken", "Milch-Arten", "Sportartikelhersteller", "US-Amerikaner", "Sportarten, die auf Sport1 übertragen werden",
+    "Arten von Ärzten", "Kündigungsgründe", "Aktuelle oder ehemalige Serien auf Pro7", "Eissorten", "Aktuelle oder ehemalige Serien auf Sat1",
+    "Charaktereigenschaften", "Aktuelle oder ehemalige Sendungen auf Super RTL/KIKA", "Verben", "Möbelläden", "Nomen",
+    "Schriftsteller", "Fortbewegungsmittel", "Kinderspielzeuge", "Sprachen", "Olympioniken", "Bürogegenstände", "Eistee-Marken",
+    "Hauptstädte in Europa", "Hauptstädte in Asien", "Autoren", "Hauptstädte in Afrika", "Sexspielzeuge", "Hauptstädte in Südamerika",
+    "Nachtische", "Hauptstädte in Nord- und Mittelamerika", "Semmelarten", "Tiere mit mehr als 4 Beinen", "Kartoffelprodukte",
+    "Verwandtschaftsgrade", "Superkräfte", "Animeserien", "Hunderassen", "Pokémons", "Hobbies", "NFL-Teams", "Kosenamen",
+    "NHL-Teams", "Grüne Gegenstände", "NBA-Teams", "Rote Gegenstände", "Deutsche Eishockey-Vereine", "Blaue Gegenstände",
+    "Deutsche Basketball-Vereine", "Gelbe Gegenstände", "Pixar-Filme", "Schwarze Gegenstände", "Pixar-Charaktere", "Weiße Gegenstände",
+    "Disney-Charaktere", "Weihnachtsgeschenke", "Schachfiguren", "Käsesorten", "K-Pop Gruppen", "Teesorten", "US-Präsidenten",
+    "Synonyme für „Sex haben“", "Glaubensrichtungen", "Suppen", "Englischsprachige Wörter im deutschen Sprachgebrauch",
+    "Krankheiten", "Rapper, deren Künstlername mit Lil beginnt", "Straßennamen in München", "Nomen, die im Lied \"Major Tom\" vorkommen",
+    "Basketballer", "Nomen, die im Lied \"Skandal im Sperrbezirk\" vorkommen", "Leichtathleten", "Länder, die Fußball-Weltmeister geworden sind",
+    "American Football Spieler", "Gegenstände, die man auf einem Campingplatz findet", "Maler", "Wörter, die \"Bär\" enthalten",
+    "Länder mit Monarchien", "Ehemalige oder Aktive Monarchen", "Deutsche Flüsse", "Flüsse", "Baumarkt-Artikel", "Wörter mit 3 Buchstaben",
+    "Gewürze", "Synonyme für Penis", "Synonyme für Vagina", "Synonyme für Sperma", "Synonyme für Masturbieren", "Dinge, die man betrunken macht",
+    "Fitnessstudios", "Fiktive TV-Unternehmen", "Fahrradhersteller", "Chipsmarken", "Schokoladenmarken", "Fiktive Orte aus TV-Serien/Filmen",
+    "Musiker, die bereits verstorben sind", "Kartenspiele", "Spielkonsolen", "Fernsehköche", "Kuchen", "Deutsche Gerichte", "Kryptowährungen",
+    "Produktarten, die Apple anbietet", "Preisvergleich-Anbieter", "Tiere, die fliegen können", "Dichter", "Kaugummihersteller", "Netflix Originals",
+    "Burgerketten", "Brillengeschäfte", "Essen, dass man beim Dönermann bestellen kann", "Marvel Superhelden", "DC Superhelden", "Streaming-Dienste",
+    "Aktiengesellschaften", "Musikgenres", "Internet-Suchmaschinen", "Browser", "Schulen in München", "Tanzstile", "Olympische Disziplinen",
+    "Märchen", "Festivals", "Ausbildungsberufe", "Fabelwesen", "Lieferdienste"
   ];
 
-  // Buchstaben von A bis Z
-  var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-  // Zufällige Kategorie auswählen
-  function selectCategory() {
-    var index = Math.floor(Math.random() * categories.length);
-    var category = categories[index];
-    categories.splice(index, 1); // Entferne die ausgewählte Kategorie
-    return category;
-  }
-
-  // Kategorie anzeigen
-  function showCategory() {
-    var category = selectCategory();
-    document.getElementById("circle").textContent = category;
-    var categoriesElement = document.getElementById("categories");
-    categoriesElement.innerHTML = ""; // Leeren vor dem Hinzufügen der Buchstaben
-    var subCategoryElement = document.createElement("div");
-    subCategoryElement.textContent = "(Klicke auf einen Buchstaben)";
-    subCategoryElement.classList.add("sub-category");
-    categoriesElement.appendChild(subCategoryElement);
-    var letterRow1 = document.createElement("div");
-    letterRow1.classList.add("letter-row");
-    var letterRow2 = document.createElement("div");
-    letterRow2.classList.add("letter-row");
-    var letterRow3 = document.createElement("div");
-    letterRow3.classList.add("letter-row");
-    for (var i = 0; i < alphabet.length; i++) {
-      var letterElement = document.createElement("div");
-      letterElement.textContent = alphabet[i];
-      letterElement.classList.add("letter");
-      letterElement.onclick = function() {
-        clickLetter(this);
-      };
-      if (i < 9) {
-        letterRow1.appendChild(letterElement);
-      } else if (i < 18) {
-        letterRow2.appendChild(letterElement);
-      } else {
-        letterRow3.appendChild(letterElement);
-      }
-    }
-    categoriesElement.appendChild(letterRow1);
-    categoriesElement.appendChild(letterRow2);
-    categoriesElement.appendChild(letterRow3);
-    startTimers();
-  }
-
-  // Klickzähler
   var clicks = 0;
-  function clickLetter(letter) {
-    letter.style.backgroundColor = "#ccc"; // Grau einfärben
-    clicks++;
-    document.getElementById("clicks").textContent = clicks;
-  }
-
-  // Timer für das Ende der Runde
+  var maxClicks = 15;
+  var roundTime = 30; // Dauer der Runde in Sekunden
   var timerInterval;
-  function startTimers() {
-    var endTimer = Math.floor(Math.random() * (50000 - 10000 + 1)) + 10000; // Zufällige Zeit zwischen 10 und 50 Sekunden
-    var timerElement = document.getElementById("end-timer");
-    timerElement.textContent = "00:00";
-    timerElement.style.display = "block";
-    var seconds = 0;
-    clearInterval(timerInterval); // Vorherigen Timer löschen
-    timerInterval = setInterval(function() {
-      seconds++;
-      timerElement.textContent = formatTime(seconds);
-    }, 1000);
-    setTimeout(function() {
-      clearInterval(timerInterval); // Timer stoppen, wenn die Runde endet
+
+  // Funktion zum Anzeigen einer zufälligen Kategorie
+  function showCategory() {
+    var randomIndex = Math.floor(Math.random() * categories.length);
+    var randomCategory = categories[randomIndex];
+
+    var categoryDiv = document.createElement("div");
+    categoryDiv.classList.add("letter");
+    categoryDiv.innerText = randomCategory;
+    document.getElementById("categories").appendChild(categoryDiv);
+
+    clicks++;
+    document.getElementById("clicks").innerText = clicks;
+
+    if (clicks >= maxClicks) {
       endRound();
-    }, endTimer);
+    }
   }
 
-  // Timer-Formatierung
-  function formatTime(seconds) {
-    var mins = Math.floor(seconds / 60);
-    var secs = seconds % 60;
-    return (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+  // Funktion zum Starten des Timers
+  function startTimer() {
+    var timeLeft = roundTime;
+    document.getElementById("end-timer").innerText = timeLeft + "s";
+    document.getElementById("end-timer").style.display = "block";
+
+    timerInterval = setInterval(function() {
+      timeLeft--;
+      document.getElementById("end-timer").innerText = timeLeft + "s";
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        endRound();
+      }
+    }, 1000);
   }
 
-  // Rundenende
+  // Funktion zum Beenden der Runde
   function endRound() {
-    document.body.style.backgroundColor = "red";
-    var endTimer = document.getElementById("end-timer");
-    endTimer.textContent = "Runde beendet!";
-    var clicks = document.getElementById("clicks").textContent;
-    var popupClicks = document.getElementById("popup-clicks");
-    popupClicks.textContent = clicks;
-    var popup = document.getElementById("popup");
-    popup.style.display = "block";
+    clearInterval(timerInterval);
+    document.getElementById("end-timer").style.display = "none";
+    document.getElementById("popup-clicks").innerText = clicks;
+    document.getElementById("popup").style.display = "block";
   }
 
-  // Spiel zurücksetzen
+  // Funktion zum Zurücksetzen des Spiels
   function resetGame() {
-    document.body.style.backgroundColor = "#f9f9f9";
-    var endTimer = document.getElementById("end-timer");
-    endTimer.style.display = "none";
-    document.getElementById("circle").textContent = "Klicke hier\nfür eine Kategorie";
-    document.getElementById("categories").innerHTML = "";
-    document.getElementById("clicks").textContent = "0";
     clicks = 0;
-    var popup = document.getElementById("popup");
-    popup.style.display = "none";
-    showCategory();
+    document.getElementById("clicks").innerText = clicks;
+    document.getElementById("categories").innerHTML = "";
+    document.getElementById("popup").style.display = "none";
+    startTimer();
   }
 
+  // Spiel beim Laden der Seite starten
+  window.onload = function() {
+    startTimer();
+  }
 </script>
 
 </body>
